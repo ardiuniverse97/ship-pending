@@ -30,7 +30,7 @@ if __name__ == '__main__':
   ship_pending_url=os.environ["SHIP_PENDING_URL"]; ship_pending_key=os.environ["SHIP_PENDING_KEY"]
   # (2) SHIP PENDING
   headers=get_headers(auth_headers_url=auth_headers_url); content=requests.get(ship_pending_url).json()['content']
-  for order_sn in content:
+  for order_sn in list(content):
     # TRIGGER (SHIP PENDING)
     if (content[order_sn]['sent_email'] == False) and (content[order_sn]['trigger'] == False):
       after_sales(
