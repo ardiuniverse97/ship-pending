@@ -2,8 +2,10 @@ name: Ship Pending
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "7,22,37,52 * * * *"   # every 15 minutes (UTC)
+
+concurrency:
+  group: ship-pending
+  cancel-in-progress: false
 
 jobs:
   run:
