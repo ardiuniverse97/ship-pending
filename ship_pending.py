@@ -9,7 +9,7 @@ import os
 # AFTER SALES
 def after_sales(headers, shop, shop_id, buyer_user_id, order_sn, _uid, request_id, type):
   if type == 'trigger': content=f'Halo Kak! 😊 Bantu info email untuk pengiriman produk digital kakak yaa. Terimakasih! 🙏'
-  elif type == 'after sales': content=f"Halo Kak! 😊 Terima kasih sudah belanja di {shop}.\n\nNo. pesanan: {order_sn}\n\nPesanan ini sudah kami kirim ke email Kakak.\nJika belum masuk, mohon cek folder spam."
+  elif type == 'after sales': content=f"Halo Kak! 😊 Terima kasih sudah belanja di {shop}.\n\nNo. pesanan: {order_sn}\n\nPesanan ini sudah kami kirim ke email Kakak.\nJika belum masuk, mohon cek folder spam. 🙏"
   conversation_id=contact_buyer(headers=headers, shop_id=shop_id, buyer_user_id=buyer_user_id, _uid=_uid)
   requests.post(
     url='https://seller.shopee.co.id/webchat/api/v1.2/messages',
