@@ -7,5 +7,5 @@ def params(headers, _uid):
     "_v": "9.1.17",
     "SPC_CDS_CHAT": spc_cds_chat(headers=headers),
     "x-shop-region": "ID",
-    "_api_source": "sc"
+    "_api_source": "webchat"
   }
