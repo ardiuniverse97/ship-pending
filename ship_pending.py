@@ -9,7 +9,7 @@ import os
 # AFTER SALES
 def after_sales(headers, shop, shop_id, buyer_user_id, order_sn, _uid, request_id, part):
   if part == 0: content=f'Halo Kak! 😊 Bantu info email untuk pengiriman produk digital kakak yaa. Terimakasih! 🙏'
-  elif part == 1: content=f'Halo Kak! 😊 Terimakasih sudah order di {str(shop).title()}\n\nNo. Pesanan: {order_sn}\n\nUntuk pesanan ini sudak kami kirim ke email kakak yaa 🎁'
+  elif part == 1: content=f'Halo Kak! 😊 Terimakasih sudah order di {shop}\n\nNo. Pesanan: {order_sn}\n\nUntuk pesanan ini sudak kami kirim ke email kakak yaa 🎁'
   elif part == 2: content='Jika tidak ada di emai, tolong bantu cek di folder spam/sampah kak. Terimakasih! 🙏'
   conversation_id=contact_buyer(headers=headers, shop_id=shop_id, buyer_user_id=buyer_user_id, _uid=_uid)
   requests.post(
@@ -36,14 +36,14 @@ if __name__ == '__main__':
     if (content[order_sn]['sent_email'] == False) and (content[order_sn]['trigger'] == False):
       for part in [0]:
         after_sales(
-          headers=headers,
-          shop=content[order_sn]['shop'],
-          shop_id=content[order_sn]['shop_id'],
-          buyer_user_id=content[order_sn]['buyer_user_id'],
-          order_sn=order_sn,
-          _uid=_uid,
-          request_id=request_id,
-          part=part
+          headers=dict(headers),
+          shop=str(content[order_sn]['shop']).title(),
+          shop_id=int(content[order_sn]['shop_id']),
+          buyer_user_id=int(content[order_sn]['buyer_user_id']),
+          order_sn=str(order_sn),
+          _uid=str(_uid),
+          request_id=str(request_id),
+          part=int(part)
         )
       content[order_sn]['trigger']=True
       update_ship_pending(ship_pending_url=ship_pending_url, ship_pending_key=ship_pending_key, content=content)
@@ -52,14 +52,14 @@ if __name__ == '__main__':
     elif content[order_sn]['sent_email'] == True:
       for part in [1,2]:
         after_sales(
-          headers=headers,
-          shop=content[order_sn]['shop'],
-          shop_id=content[order_sn]['shop_id'],
-          buyer_user_id=content[order_sn]['buyer_user_id'],
-          order_sn=order_sn,
-          _uid=_uid,
-          request_id=request_id,
-          part=part
+          headers=dict(headers),
+          shop=str(content[order_sn]['shop']).title(),
+          shop_id=int(content[order_sn]['shop_id']),
+          buyer_user_id=int(content[order_sn]['buyer_user_id']),
+          order_sn=str(order_sn),
+          _uid=str(_uid),
+          request_id=str(request_id),
+          part=int(part)
         )
       del content[order_sn]
       update_ship_pending(ship_pending_url=ship_pending_url, ship_pending_key=ship_pending_key, content=content)
