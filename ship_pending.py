@@ -7,9 +7,9 @@ import requests
 import os
 
 # AFTER SALES
-def after_sales(headers, shop, shop_id, buyer_user_id, order_sn, _uid, request_id, type):
+def after_sales(headers, shop_id, buyer_user_id, _uid, request_id, type):
   if type == 'trigger': content=f'Halo Kak! 😊 Bantu info email untuk pengiriman produk digital kakak yaa. Terimakasih! 🙏'
-  elif type == 'after sales': content=f"Halo Kak! 😊 Terima kasih sudah belanja di {shop}.\n\nNo. pesanan: {order_sn}\n\nPesanan ini sudah kami kirim ke email Kakak.\nJika belum masuk, mohon cek folder spam. 🙏"
+  elif type == 'after sales': content="Halo Kak! 😊 Terimakasih sudah berbelanja di toko kami. Pesanan sudah dikirimkan ya. Jika belum menerima, tolong bantu cek di folder spam/sampah kak. Terimakasih! 🙏"
   conversation_id=contact_buyer(headers=headers, shop_id=shop_id, buyer_user_id=buyer_user_id, _uid=_uid)
   requests.post(
     url='https://seller.shopee.co.id/webchat/api/v1.2/messages',
@@ -35,10 +35,8 @@ if __name__ == '__main__':
     if (content[order_sn]['sent_email'] == False) and (content[order_sn]['trigger'] == False):
       after_sales(
         headers=dict(headers),
-        shop=str(content[order_sn]['shop']).title(),
         shop_id=int(content[order_sn]['shop_id']),
         buyer_user_id=int(content[order_sn]['buyer_user_id']),
-        order_sn=str(order_sn),
         _uid=str(_uid),
         request_id=str(request_id),
         type=str('trigger')
@@ -50,10 +48,8 @@ if __name__ == '__main__':
     elif content[order_sn]['sent_email'] == True:
       after_sales(
         headers=dict(headers),
-        shop=str(content[order_sn]['shop']).title(),
         shop_id=int(content[order_sn]['shop_id']),
         buyer_user_id=int(content[order_sn]['buyer_user_id']),
-        order_sn=str(order_sn),
         _uid=str(_uid),
         request_id=str(request_id),
         type=str('after sales')
